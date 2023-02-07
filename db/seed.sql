@@ -1,6 +1,6 @@
 \c messageboard
 
-INSERT INTO users (name, email, password) VALUES 
+
   ('John Doe', 'johndoe1@example.com', 'password1'),
   ('Jane Doe', 'janedoe2@example.com', 'password2'),
   ('Jim Smith', 'jimsmith3@example.com', 'password3'),
