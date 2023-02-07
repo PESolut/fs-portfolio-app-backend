@@ -1,6 +1,6 @@
 \c messageboard
 
-
+INSERT INTO users (name, email, password) VALUES
   ('John Doe', 'johndoe1@example.com', 'password1'),
   ('Jane Doe', 'janedoe2@example.com', 'password2'),
   ('Jim Smith', 'jimsmith3@example.com', 'password3'),
@@ -12,9 +12,16 @@
   ('Emma Clark', 'emmaclark9@example.com', 'password9'),
   ('Tommy Davis', 'tommydavis10@example.com', 'password10');
 
-  INSERT INTO messages (message, date, time, user_id) VALUES 
+INSERT INTO messages (message, date, time, user_id) VALUES 
   ('Hello World!', '2022-06-01', '10:00:00', 1),
   ('How are you today?', '2022-06-02', '11:00:00', 2),
   ('I love this app!', '2022-06-03', '12:00:00', 3),
   ('Just testing out the app', '2022-06-04', '13:00:00', 4),
   ('This is my first message', '2022-06-05', '14:00:00', 5);
+
+INSERT INTO comments (comment, date, time, message_id) VALUES 
+  ('Agreed!', '2022-06-01', '10:30:00', 1),
+  ('I have the same thoughts', '2022-06-02', '11:30:00', 2),
+  ('Thanks for sharing', '2022-06-03', '12:30:00', 3),
+  ('This is really helpful', '2022-06-04', '13:30:00', 4),
+  ('Nice!', '2022-06-05', '14:30:00', 5);
