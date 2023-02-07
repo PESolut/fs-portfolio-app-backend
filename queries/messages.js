@@ -9,4 +9,13 @@ const getAllMessages = async () => {
             }
 }
 
-module.exports = { getAllMessages }
+const getMessage = async (id) => {
+    try {
+        const oneMessage = await db.one("SELECT * FROM messages WHERE id=$1", id)
+        return oneMessage
+    } catch (error) {
+        return error
+    }
+}
+
+module.exports = { getAllMessages, getMessage }
