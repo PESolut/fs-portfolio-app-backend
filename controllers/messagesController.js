@@ -3,7 +3,8 @@ const messages = express.Router()
 // validations here
 const {
     getAllMessages,
-    getMessage
+    getMessage,
+    createMessage
 } = require("../queries/messages")
 
 // INDEX
@@ -25,6 +26,16 @@ messages.get("/:id", async (req, res) =>{
         res.status(200).json(message)
     } else {
         res.status(404).json({ error: "not found" })
+    }
+})
+
+// CREATE
+messages.post('/', async (req, res) => {
+    try {
+        const message = await createMessage(req.body)
+        res.status(200).json(message)
+    } catch (error) {
+        res.status(500).json({ error: error });
     }
 })
 
