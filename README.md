@@ -29,5 +29,5 @@ PG_USER=postgres
 This project is open source and contributions are welcome! If you find any bugs or have suggestions for new features, please feel free to create an issue or make a pull request.
 
 ## Links
-[Backend Repo](https://github.com/PESolut/fs-portfolio-app-backend)
-[Frontend Repo](https://github.com/PESolut/fs-portfolio-app-frontend/)
+- [Backend Repo](https://github.com/PESolut/fs-portfolio-app-backend)
+- [Frontend Repo](https://github.com/PESolut/fs-portfolio-app-frontend/)
