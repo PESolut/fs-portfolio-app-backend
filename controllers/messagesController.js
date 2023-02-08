@@ -1,6 +1,8 @@
 const express = require("express")
 const messages = express.Router()
-// validations here
+const {
+    defaultDateTime
+} = require("../validations/validations")
 
 const {
     getAllMessages,
@@ -32,7 +34,7 @@ messages.get("/:id", async (req, res) =>{
 })
 
 // CREATE
-messages.post('/', async (req, res) => {
+messages.post('/', defaultDateTime, async (req, res) => {
     try {
         const message = await createMessage(req.body)
         res.status(200).json(message)
