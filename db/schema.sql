@@ -16,10 +16,10 @@ DROP TABLE IF EXISTS messages;
 
 CREATE TABLE messages (
   id serial PRIMARY KEY,
-  user_id integer REFERENCES users(id),
   date date NOT NULL,
   time time NOT NULL,
-  message text NOT NULL
+  message text NOT NULL,
+  user_id integer REFERENCES users(id)
 );
 
 DROP TABLE IF EXISTS comments;
