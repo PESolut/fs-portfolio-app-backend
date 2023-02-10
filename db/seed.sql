@@ -19,9 +19,9 @@ INSERT INTO messages (message, date, time, user_id) VALUES
   ('Just testing out the app', '2022-06-04', '13:00:00', 4),
   ('This is my first message', '2022-06-05', '14:00:00', 5);
 
-INSERT INTO comments (comment, date, time, message_id) VALUES 
-  ('Agreed!', '2022-06-01', '10:30:00', 1),
-  ('I have the same thoughts', '2022-06-02', '11:30:00', 2),
-  ('Thanks for sharing', '2022-06-03', '12:30:00', 3),
-  ('This is really helpful', '2022-06-04', '13:30:00', 4),
-  ('Nice!', '2022-06-05', '14:30:00', 5);
+INSERT INTO comments (comment, date, time, message_id, user_id) VALUES 
+  ('Agreed!', '2022-06-01', '10:30:00', 1, 2),
+  ('I have the same thoughts', '2022-06-02', '11:30:00', 2, 1),
+  ('Thanks for sharing', '2022-06-03', '12:30:00', 3, 7),
+  ('This is really helpful', '2022-06-04', '13:30:00', 4, 2),
+  ('Nice!', '2022-06-05', '14:30:00', 5, 7);
