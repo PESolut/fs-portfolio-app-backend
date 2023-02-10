@@ -3,6 +3,8 @@ const messages = express.Router()
 const {
     defaultDateTime
 } = require("../validations/validations")
+const commentsController = require("./commentsController")
+messages.use('/:messageId/comments', commentsController)
 
 const {
     getAllMessages,

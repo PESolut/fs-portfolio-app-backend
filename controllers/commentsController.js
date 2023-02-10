@@ -1,5 +1,5 @@
 const express = require("express")
-const comments = express.Router()
+const comments = express.Router({ mergeParams: true })
 
 const { 
     getAllComments,
@@ -11,7 +11,9 @@ const {
 
 // INDEX
 comments.get("/", async ( req, res ) => {
-    const allComments = await getAllComments()
+    const { messageId } = req.params
+
+    const allComments = await getAllComments(messageId)
     if (allComments){
         res.status(200).json(allComments)
     } else {
@@ -31,8 +33,10 @@ comments.get("/:id" , async ( req, res ) => {
 })
 // CREATE
 comments.post('/', async ( req, res ) => {
+    const { messageId } = req.params
+
     try {
-    const newComment = await createComment(req.body)
+    const newComment = await createComment(req.body, messageId)
         res.status(200).json(newComment)
     } catch (error) {
         res.status(500).json({ error: error })

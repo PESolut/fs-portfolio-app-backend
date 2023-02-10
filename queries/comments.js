@@ -1,8 +1,8 @@
 const db = require("../db/dbConfig")
 
-const getAllComments = async () => {
+const getAllComments = async (messageId) => {
     try {
-        const allComments = await db.any('SELECT * from comments')
+        const allComments = await db.any('SELECT * from comments WHERE message_id=$1', messageId)
         return allComments
     } catch (error) {
         return error
