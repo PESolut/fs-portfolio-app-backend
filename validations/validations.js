@@ -1,6 +1,7 @@
 const { check } = require('express-validator')
 const db = require('../db/dbConfig')
 const {hash} = require('bcryptjs')
+const {compare} = require('bcryptjs')
 
 
 exports.checkEmail = ( req, res, next ) => {
@@ -65,6 +66,56 @@ exports.register = async (req, res, next) => {
     console.log(error.message)
   }
 }
+
+exports.loginFieldCheck = async (req, res, next) => {
+  try {
+    const users = await db.any('SELECT * from users')
+    let emailMatch = false;
+    let loginBoolean = false
+    let inputEmail = req.body.email
+
+    for (const user of users) {
+      console.log(user.email, inputEmail)
+      console.log(user.email === inputEmail)
+
+      if (user.email === inputEmail) {
+        emailMatch = true;
+        console.log(`Email Matched! output: ${inputEmail}`);
+        const validPassword = await compare(req.body.password, user.password);
+        console.log(validPassword);
+        if (validPassword) {
+          loginBoolean = true;
+          console.log('Password matched!');
+        }
+      }
+    }
+
+    if (!emailMatch) {
+      return res.status(500).json({
+        success: false,
+        message: 'input email does not match a user in the database'
+      })
+    }
+
+    if (!loginBoolean) {
+      return res.status(500).json({
+        success: false,
+        message: 'Password is incorrect'
+      })
+    }
+
+    next();
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'login failed!',
+      error: error
+    })
+  }
+}
+
+
+
 
 
 // exports.checkEmailExists = ( req, res, next ) => {

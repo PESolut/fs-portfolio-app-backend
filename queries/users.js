@@ -2,7 +2,7 @@ const db = require("../db/dbConfig")
 
 const getAllUsers = async () => {
     try {
-        allUsers = await db.any('SELECT * from users')
+        allUsers = await db.any('SELECT id, name, email from users')
         return allUsers
     } catch (error) {
         return error
