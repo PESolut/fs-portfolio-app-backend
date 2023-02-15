@@ -3,6 +3,7 @@ const cors = require("cors")
 const express = require('express')
 const morgan = require("morgan")
 const messagesController = require("./controllers/messagesController.js")
+const usersController = require("./controllers/usersController")
 
 // CONFIGURATION
 const app = express()
@@ -14,7 +15,7 @@ app.use(cors())
 
 // CONTROLLERS
 app.use("/messages", messagesController)
-
+app.use("/users", usersController)
 
 // ROUTES
 app.get("/", (req, res) => {
