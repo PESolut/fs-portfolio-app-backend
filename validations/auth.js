@@ -26,8 +26,10 @@ passport.use(new JwtStrategy(options, async (jwtPayload, done) => {
       [jwtPayload.id]
     );
     if (!user) {
+        console.log('no user')
       return done(null, false);
     }
+    console.log(user)
     return done(null, user);
   } catch (error) {
     console.log('Error:', error);

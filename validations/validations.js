@@ -65,7 +65,6 @@ exports.register = async (req, res, next) => {
       message: 'the registration was unsuccessful!',
       error: error
     })
-    console.log(error.message)
   }
 }
 

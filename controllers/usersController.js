@@ -10,6 +10,8 @@ const{
     login,
 } = require ("../validations/validations")
 
+
+// Function that checks to see if token is present inside of client
 const {
     userAuth
 } = require ("../validations/auth.js")
@@ -20,8 +22,8 @@ const {
     createUser
 } = require("../queries/users")
 
-// INDEX ROUTE
-users.get("/", async ( req, res ) => {
+// PROTECTED ROUTE - INDEX ROUTE
+users.get("/", userAuth, async ( req, res ) => {
     try {
     const allUsers = await getAllUsers()
     res.status(200).json(allUsers)
@@ -50,7 +52,23 @@ users.post("/login", loginFieldCheck, login, async ( req, res ) => {
     }
 })
 
-// PROTECTED ROUTE - get users
+// GET ROUTE - logout
+users.get("/logout", async ( req, res ) => {
+    try {
+        return res.status(200).clearCookie('token',{ httpOnly: true }).json({
+            success: true,
+            message: 'Logged out successfully'
+        })
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({
+            error: error.message,
+        })   
+    }
+}
+)
+
+// PROTECTED ROUTE  - (needs functionality )
 users.get('/protected', userAuth, async ( req, res) => {
     try {
         // const protectedUsers = await getAllUsers()

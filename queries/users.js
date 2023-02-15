@@ -18,6 +18,14 @@ const createUser = async (user) => {
     }
 }
 
+// const logoutUser = async () => {
+//     try {
+//         const userFlushed = await db.one('SELECT from users WHERE id=$1', )
+//     } catch (error) {
+//         return error
+//     }
+// }
+
 module.exports = {
     getAllUsers,
     createUser
