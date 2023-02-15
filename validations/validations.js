@@ -2,6 +2,8 @@ const { check } = require('express-validator')
 const db = require('../db/dbConfig')
 const {hash} = require('bcryptjs')
 const {compare} = require('bcryptjs')
+const {sign} = require('jsonwebtoken')
+const {SECRET} = require('../constants')
 
 
 exports.checkEmail = ( req, res, next ) => {
@@ -113,6 +115,61 @@ exports.loginFieldCheck = async (req, res, next) => {
     })
   }
 }
+
+exports.login = async (req, res) => {
+  console.log(req.body); // print the contents of the request body
+  const {email, password, name} = req.body; // extract email, password, and name from the request body
+  let payload = {
+    email: email,
+    name: name,
+  }
+  console.log(payload)
+
+  try {
+    const users = await db.any('SELECT * from users')
+    let emailMatch = false;
+    let loginBoolean = false;
+
+    for (const user of users) {
+      if (user.email === email) {
+        emailMatch = true;
+        const validPassword = await compare(password, user.password);
+        if (validPassword) {
+          loginBoolean = true;
+          payload.id = user.id; // add user ID to the payload
+          break; // stop the loop once the correct user has been found
+        }
+      }
+    }
+
+    if (!emailMatch) {
+      return res.status(401).json({
+        success: false,
+        message: 'Input email does not match a user in the database'
+      })
+    }
+
+    if (!loginBoolean) {
+      return res.status(401).json({
+        success: false,
+        message: 'Password is incorrect'
+      })
+    }
+
+    const token = await sign(payload, SECRET);
+    return res.status(200).cookie('token', token, {httpOnly: true}).json({
+      success: true,
+      message: "Logged in successfully"
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Login failed!',
+      error: error
+    })
+  }
+}
+
 
 
 
