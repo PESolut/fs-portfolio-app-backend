@@ -1,5 +1,7 @@
 const { check } = require('express-validator')
 const db = require('../db/dbConfig')
+const {hash} = require('bcryptjs')
+
 
 exports.checkEmail = ( req, res, next ) => {
  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email)){
@@ -39,6 +41,30 @@ exports.checkEmailExists = async ( req, res, next ) => {
     res.status(500).json({ error: error });
   }
 };
+
+exports.register = async (req, res, next) => {
+  const {email, password, name} = req.body
+  try {
+    const hashedPassword = await hash(password, 12)
+    await db.query('insert into users(email,password,name) values ($1,$2,$3)',[email, hashedPassword, name])
+    return res.status(201).json({
+      sucess: true,
+      message: 'the registration was successful',
+      object: {
+        email: email,
+        password: hashedPassword,
+        name: name
+      }
+    })
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'the registration was unsuccessful!',
+      error: error
+    })
+    console.log(error.message)
+  }
+}
 
 
 // exports.checkEmailExists = ( req, res, next ) => {

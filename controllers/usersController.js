@@ -4,7 +4,8 @@ const users = express.Router({})
 const{
     checkPassword,
     checkEmail,
-    checkEmailExists
+    checkEmailExists,
+    register
 } = require ("../validations/validations")
 
 
@@ -24,7 +25,7 @@ users.get("/", async ( req, res ) => {
 })
 
 // CREATE ROUTE
-users.post("/", checkPassword, checkEmail, checkEmailExists, async ( req, res ) => {
+users.post("/", checkPassword, checkEmail, checkEmailExists, register, async ( req, res ) => {
     try {
         const newUser = await createUser(req.body)
         res.status(200).json(newUser)
