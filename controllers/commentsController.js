@@ -1,6 +1,10 @@
 const express = require("express")
 const comments = express.Router({ mergeParams: true })
 
+const {
+    defaultDateTime
+} = require("../validations/validations")
+
 const { 
     getAllComments,
     getComment,
@@ -32,7 +36,7 @@ comments.get("/:id" , async ( req, res ) => {
     }
 })
 // CREATE
-comments.post('/', async ( req, res ) => {
+comments.post('/', defaultDateTime, async ( req, res ) => {
     const { messageId } = req.params
 
     try {
